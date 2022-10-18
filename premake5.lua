@@ -8,6 +8,13 @@ workspace "VoxelGame"
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
+-- Include Directories
+IncludeDirs = {}
+IncludeDirs["GLFW"] = "VoxelGame/vendor/GLFW/include"
+
+-- Search for other projects
+include "VoxelGame/vendor/GLFW"
+
 project "VoxelGame"
     location "VoxelGame"
     kind "consoleApp"
@@ -25,11 +32,13 @@ project "VoxelGame"
     }
 
     includedirs {
-        "%{prj.name}/src"
+        "%{prj.name}/src",
+        "%{IncludeDirs.GLFW}"
     }
 
     links {
-        
+        "GLFW",
+        "opengl32.lib"
     }
 
     filter "configurations:Debug"

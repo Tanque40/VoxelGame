@@ -4,6 +4,7 @@ bin-obj/**
 
 # vs
 .vs
+.vscode
 
 # vs solution
 **.sln
