@@ -8,6 +8,15 @@ workspace "VoxelGame"
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
+-- Include Directories
+IncludeDirs = {}
+IncludeDirs["GLFW"] = "VoxelGame/vendor/GLFW/include"
+IncludeDirs["GLAD"] = "VoxelGame/vendor/Glad/include"
+
+-- Search for other projects
+include "VoxelGame/vendor/GLFW"
+include "VoxelGame/vendor/Glad"
+
 project "VoxelGame"
     location "VoxelGame"
     kind "consoleApp"
@@ -25,11 +34,19 @@ project "VoxelGame"
     }
 
     includedirs {
-        "%{prj.name}/src"
+        "%{prj.name}/src",
+        "%{IncludeDirs.GLAD}",
+        "%{IncludeDirs.GLFW}"
     }
 
     links {
-        
+        "GLFW",
+        "Glad",
+        "opengl32.lib"
+    }
+
+    defines {
+        "GLFW_INCLUDE_NONE"
     }
 
     filter "configurations:Debug"

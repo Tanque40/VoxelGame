@@ -1,9 +1,10 @@
 # project
-bin/**
-bin-obj/**
+**/bin/**
+**/bin-obj/**
 
 # vs
 .vs
+.vscode
 
 # vs solution
 **.sln
