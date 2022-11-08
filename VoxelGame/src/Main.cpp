@@ -1,5 +1,6 @@
 #include "Application.h"
 
+#include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
 void error_callback( int error, const char* description );
@@ -11,25 +12,30 @@ int main(void) {
     /* Initialize the library */
     if (!glfwInit())
         return -1;
-
+    unsigned int width = 1080, height = 720;
     /* Create a windowed mode window and its OpenGL context */
-    window = glfwCreateWindow(1080, 720, "Voxel Game", NULL, NULL);
+    window = glfwCreateWindow(width, height, "Voxel Game", NULL, NULL);
     if (!window) {
         glfwTerminate();
         return -1;
     }
 
-    /* Make the window's context current */
-    glfwMakeContextCurrent(window);
-
     glfwSetErrorCallback(error_callback);
 
     glfwSetKeyCallback(window, key_callback);
 
+    /* Make the window's context current */
+    glfwMakeContextCurrent(window);
+    gladLoadGL();
+    glfwSwapInterval( 1 );
+
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window)) {
         /* Render here */
+
+        glViewport( 0, 0, width, height );
         glClear(GL_COLOR_BUFFER_BIT);
+
 
         /* Swap front and back buffers */
         glfwSwapBuffers(window);
@@ -41,8 +47,9 @@ int main(void) {
         std::cout << "Hello, world!";
     }
 
-    glfwTerminate();
+    glfwDestroyWindow(window);
 
+    glfwTerminate();
     return 0;
 }
 
